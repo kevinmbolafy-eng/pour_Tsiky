@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour ma Tsiky ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a0000, #660022, #ff3366);
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 35px 15px;
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    color: #ff99cc;
+    font-size: 34px;
+    text-shadow: 0 0 15px #ff3366;
+}
+
+h2 {
+    color: #ffccdd;
+    margin-top: 35px;
+}
+
+.message {
+    font-size: 19px;
+    line-height: 1.8;
+    margin: 20px auto;
+}
+
+button {
+    background: #ff3366;
+    color: white;
+    border: 2px solid #ff99cc;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff3366;
+}
+
+button:hover {
+    background: #ff6699;
+    transform: scale(1.03);
+}
+
+#secret {
+    margin: 25px auto;
+    max-width: 600px;
+}
+
+.phrase-surprise {
+    background: rgba(255, 153, 204, 0.15);
+    border: 1px solid #ff99cc;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 15px auto;
+    animation: apparition 1s ease;
+    box-shadow: 0 0 15px rgba(255, 153, 204, 0.3);
+}
+
+@keyframes apparition {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.photo {
+    display: block;
+    width: 90%;
+    max-width: 320px;
+    height: auto;
+    border-radius: 20px;
+    margin: 18px auto;
+    box-shadow: 0 0 20px #ff99cc;
+}
+
+audio {
+    margin: 15px auto;
+    max-width: 100%;
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    animation: monter 6s linear forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes monter {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+footer {
+    margin-top: 40px;
+    padding-bottom: 25px;
+    color: #ffccdd;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Pour ma Tsiky ❤️</h1>
+
+    <p class="message">
+        Ma Zaza ❤️<br>
+        Même si la distance nous sépare,<br>
+        tu restes toujours dans mon cœur.<br>
+        Cette petite surprise est pour toi. 💕
+    </p>
+
+    <button onclick="afficherMessage()">
+        Clique ici, mon amour ❤️
+    </button>
+
+    <div id="secret" class="message"></div>
+
+    <h2>Nos souvenirs 📸</h2>
+
+    <img class="photo" src="photo/image1.jpg"
+         alt="Notre souvenir 1"
+         onerror="this.style.display='none'">
+
+    <img class="photo" src="photo/image2.jpg"
+         alt="Notre souvenir 2"
+         onerror="this.style.display='none'">
+
+    <img class="photo" src="photo/image3.jpg"
+         alt="Notre souvenir 3"
+         onerror="this.style.display='none'">
+
+    <h2>Notre musique 🎵</h2>
+
+    <p>Une petite musique pour toi, mon amour ❤️</p>
+
+    <audio id="maMusique" loop preload="auto">
+        <source src="musique/amour.mp3" type="audio/mpeg">
+        Ton navigateur ne peut pas lire cette musique.
+    </audio>
+
+    <footer>
+        Créé avec amour ❤️ Pour ma Tsiky 💗
+    </footer>
+
+</div>
+
+<script>
+const phrases = [
+    "Même si la distance nous sépare, je pense à toi chaque jour. ❤️",
+    "Tu es ma Zaza, et tu occupes une place spéciale dans mon cœur. 💕",
+    "J'ai hâte de te retrouver et de te serrer dans mes bras. 🥹",
+    "Je veux continuer à écrire notre histoire avec toi. 💌",
+    "Je n'ai jamais changé, je t'aime toujours, et je t'aime encore plus. ❤️",
+    "Je suis très fier de toi pour ta soutenance. 🥹❤️"
+];
+
+let prochainePhrase = 0;
+
+function afficherMessage() {
+    const zone = document.getElementById("secret");
+    const musique = document.getElementById("maMusique");
+
+    if (prochainePhrase < phrases.length) {
+        const phrase = document.createElement("div");
+        phrase.className = "phrase-surprise";
+        phrase.textContent = phrases[prochainePhrase];
+        zone.appendChild(phrase);
+        prochainePhrase++;
+    } else {
+        const phrase = document.createElement("div");
+        phrase.className = "phrase-surprise";
+        phrase.textContent =
+            "Mon amour pour toi continue de grandir. ❤️💗";
+        zone.appendChild(phrase);
+    }
+
+    if (musique.paused) {
+        musique.play().catch(() => {
+            // Si la musique ne démarre pas, vérifie le fichier audio.
+        });
+    }
+}
+
+function creerCoeur() {
+    const coeur = document.createElement("div");
+    coeur.className = "heart";
+    coeur.textContent =
+        ["❤️", "💕", "💖", "💗"][Math.floor(Math.random() * 4)];
+
+    coeur.style.left = Math.random() * 100 + "vw";
+    coeur.style.fontSize = (18 + Math.random() * 25) + "px";
+
+    document.body.appendChild(coeur);
+
+    setTimeout(() => coeur.remove(), 6000);
+}
+
+setInterval(creerCoeur, 400);
+</script>
+</body>
+</html>
